@@ -66,35 +66,35 @@ def analyze_matrix_data() -> None:
 
     np.random.seed(42)
 
-    months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ]
-    labubu_sales = np.random.randint(20, 120, size=(12, 4))
+    matrix_data = np.random.randint(0, 100, size=(10, 10))
+    rows = [f"Row {number}" for number in range(1, 11)]
+    columns = [f"Column {number}" for number in range(1, 11)]
 
     df = pd.DataFrame(
-        labubu_sales,
-        index=months,
-        columns=[
-            "Labubu Macaron",
-            "Labubu Have a Seat",
-            "Labubu Big Into Energy",
-            "Labubu Fall in Wild",
-        ],
+        matrix_data,
+        index=rows,
+        columns=columns,
     )
 
-    print("\n=== Labubu monthly sales sample ===")
-    print(df.head())
+    print("\n=== Matrix data sample ===")
+    print(df)
+
+    print("\n=== Matrix data statistics ===")
+    print(df.describe())
+
+    print("\n=== Matrix summary ===")
+    print(f"Mean value: {df.values.mean():.2f}")
+    print(f"Highest value: {df.values.max()}")
+    print(f"Lowest value: {df.values.min()}")
 
     plt.figure()
-    for product in df.columns:
-        plt.plot(df.index, df[product], marker="o", label=product)
-    plt.title("Labubu Monthly Product Sales")
-    plt.xlabel("Month")
-    plt.ylabel("Units sold")
-    plt.grid(True)
-    plt.xticks(rotation=45)
-    plt.legend()
+    plt.imshow(df, cmap="viridis")
+    plt.title("Matrix Data Heatmap")
+    plt.xlabel("Matrix columns")
+    plt.ylabel("Matrix rows")
+    plt.colorbar(label="Value")
+    plt.xticks(range(len(columns)), columns, rotation=45)
+    plt.yticks(range(len(rows)), rows)
     plt.tight_layout()
     plt.savefig("matrix_analysis.png")
 
